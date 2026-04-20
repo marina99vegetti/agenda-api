@@ -34,12 +34,13 @@ app.post('/tasks', (req, res) => {
         console.log("BODY:", req.body);
 
         const newTask = {
-            id: Date.now(),
-            title: req.body.title,
-            date: req.body.date,
-            priority: req.body.priority || "normal",
-            done: false
-        };
+        id: Date.now(),
+        title: req.body.title,
+        date: req.body.date,
+        time: req.body.time, 
+        priority: req.body.priority || "normal",
+        done: false
+};
 
         tasks.push(newTask);
         saveTasks();
