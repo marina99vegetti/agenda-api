@@ -33,13 +33,14 @@ app.post('/tasks', (req, res) => {
     try {
         console.log("BODY:", req.body);
 
-        const newTask = {
-        id: Date.now(),
-        title: req.body.title,
-        date: req.body.date,
-        time: req.body.time, 
-        priority: req.body.priority || "normal",
-        done: false
+    const newTask = {
+    id: Date.now(),
+    title: req.body.title,
+    date: req.body.date,
+    time: req.body.time,
+    priority: req.body.priority || "normal",
+    obs: req.body.obs || "",
+    done: false
 };
 
         tasks.push(newTask);
@@ -54,13 +55,23 @@ app.post('/tasks', (req, res) => {
 });
 
 // TOGGLE
+a// ATUALIZAR
 app.put('/tasks/:id', (req, res) => {
-    tasks = tasks.map(task =>
-        task.id == req.params.id ? { ...task, done: !task.done } : task
-    );
+
+    const index = tasks.findIndex(t => t.id == req.params.id);
+
+    if (index === -1) {
+        return res.status(404).json({ error: "Tarefa não encontrada" });
+    }
+
+    tasks[index] = {
+        ...tasks[index],
+        ...req.body
+    };
 
     saveTasks();
-    res.json({ ok: true });
+
+    res.json(tasks[index]);
 });
 
 // DELETE
