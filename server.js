@@ -55,10 +55,10 @@ app.post('/tasks', (req, res) => {
 });
 
 // TOGGLE
-a// ATUALIZAR
+// ATUALIZAR TAREFA
 app.put('/tasks/:id', (req, res) => {
 
-    const index = tasks.findIndex(t => t.id == req.params.id);
+    const index = tasks.findIndex(task => task.id == req.params.id);
 
     if (index === -1) {
         return res.status(404).json({ error: "Tarefa não encontrada" });
